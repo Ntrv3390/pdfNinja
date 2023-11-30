@@ -34,6 +34,9 @@ const Navbar = () => {
     <Link href="/dashboard" className={buttonVariants({ variant: "ghost", size: "sm" })}>
     Dashboard 
     </Link>
+    <Link href="/dashboard/billing" className={buttonVariants({ variant: "ghost", size: "sm" })}>
+    Manage Subscription 
+    </Link>
   <LogoutLink className={buttonVariants({ variant: "ghost", size: "sm" })}>
     Sign out
   </LogoutLink>
