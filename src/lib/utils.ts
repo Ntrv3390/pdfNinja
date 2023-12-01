@@ -1,7 +1,6 @@
 import { type ClassValue, clsx } from "clsx"
 import { Metadata } from "next";
 import { twMerge } from "tailwind-merge"
-import { boolean } from "zod";
  
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -47,7 +46,6 @@ export function constructMetadata({
     },
     icons,
     metadataBase: new URL('https://pdfninja.vercel.app'),
-    themeColor: '#FFF',
     ...(noIndex && {
       robots: {
         index: false,
