@@ -97,7 +97,6 @@ const onUploadComplete = async ({
     })
 
   } catch (error) {
-    console.log(error)
     await db.file.update({
       data: {
         uploadStatus: "FAILED",
@@ -113,7 +112,7 @@ export const ourFileRouter = {
   freePlanUploader: f({ pdf: { maxFileSize: "2MB" } })
     .middleware(middleware)
     .onUploadComplete(onUploadComplete),
-    proPlanUploader: f({ pdf: { maxFileSize: "8MB" } })
+  proPlanUploader: f({ pdf: { maxFileSize: "8MB" } })
     .middleware(middleware)
     .onUploadComplete(onUploadComplete),
 } satisfies FileRouter;
