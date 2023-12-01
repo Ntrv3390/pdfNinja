@@ -1,12 +1,12 @@
 "use client"
 
-import { ChevronDown, ChevronUp, Loader2, RotateCw, Search } from 'lucide-react'
+import { ArrowLeft, ChevronDown, ChevronUp, Loader2, RotateCw, Search } from 'lucide-react'
 import {Document, Page, pdfjs} from 'react-pdf'
 import 'react-pdf/dist/Page/AnnotationLayer.css'
 import 'react-pdf/dist/Page/TextLayer.css'
 import { useToast } from './ui/use-toast'
 import {useResizeDetector} from 'react-resize-detector';
-import { Button } from './ui/button'
+import { Button, buttonVariants } from './ui/button'
 import { Input } from './ui/input'
 import { useState } from 'react'
 import {useForm} from 'react-hook-form'
@@ -17,6 +17,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuIte
 import SimpleBar from 'simplebar-react';
 import PdfFullScreen from './PdfFullScreen'
 import { useEffect } from 'react'
+import Link from 'next/link'
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`
 
 interface PdfRendererProps {
@@ -59,6 +60,9 @@ const PDFRenderer = ({url}: PdfRendererProps) => {
         <div className="w-full bg-white rounded-md shadow flex flex-col items-center">
             <div className="h-14 w-full border-b border-zinc-200 flex items-center justify-between px-2">
                 <div className="flex items-center gap-1.5">
+                    <Link className={buttonVariants({
+                        variant:'ghost',
+                    })} href="/dashboard"><ArrowLeft className='h-4 w-4'/></Link>
                     <Button disabled={currPage <= 1} variant='ghost' aria-label='previous page' onClick={() => {
                         setCurrPage((prev) => (prev - 1 > 1 ? prev - 1 : 1))
                         setValue("page", String(currPage-1))
