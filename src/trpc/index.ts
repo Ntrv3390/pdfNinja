@@ -14,6 +14,7 @@ import {
   stripe,
 } from '@/lib/stripe'
 import { PLANS } from '@/config/stripe'
+import { utapi } from '@/lib/deleteUploadThing'
 
 export const appRouter = router({
   authCallback: publicProcedure.query(async () => {
@@ -214,6 +215,11 @@ export const appRouter = router({
       })
 
       return file
+    }),
+    deleteFromUploadthing: privateProcedure
+    .input( z.object({id:z.string()}) )
+    .mutation(async ({ctx,input}) => { 
+        await utapi.deleteFiles(input.id); 
     }),
 })
 
