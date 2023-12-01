@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import {getKindeServerSession} from "@kinde-oss/kinde-auth-nextjs/server";
 import {  RegisterLink } from "@kinde-oss/kinde-auth-nextjs/server";
+import Footer from "@/components/Footer";
 
 
 export default function Home() {
@@ -120,6 +121,7 @@ export default function Home() {
               </div>
             </div>
       </MaxWidthWrapper>
+      <Footer/>
     </>
   )
 }

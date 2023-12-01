@@ -8,6 +8,7 @@ import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/c
 import { Button } from "./ui/button"
 import { Loader2 } from "lucide-react"
 import { format } from "date-fns"
+import Footer from "./Footer"
 
 interface BillingFormProps {
     subscriptionPlan: Awaited<ReturnType<typeof getUserSubscriptionPlan>>
@@ -28,7 +29,7 @@ const BillingForm = ({subscriptionPlan}:BillingFormProps) => {
         }
     })
 
-    return <MaxWidthWrapper className="max-w-5xl">
+    return <><MaxWidthWrapper className="max-w-5xl">
         <form className="mt-12" onSubmit={(e) => {
             e.preventDefault();
             createStripeSession();
@@ -54,7 +55,7 @@ const BillingForm = ({subscriptionPlan}:BillingFormProps) => {
                     {
                         subscriptionPlan.isSubscribed ? (
                             <p className="rounded-full text-xs font-medium">
-                                {subscriptionPlan.isCanceled ? 'Your plan will be cancelled on' : 'Your plan renews on'}
+                                {subscriptionPlan.isCanceled ? 'Your plan will be cancelled on ' : 'Your plan renews on '}
                                 {format(subscriptionPlan.stripeCurrentPeriodEnd!, "dd-MM-yyyy")}
                             </p>
                         ):null
@@ -63,6 +64,8 @@ const BillingForm = ({subscriptionPlan}:BillingFormProps) => {
             </Card>
         </form>
     </MaxWidthWrapper>
+    <Footer/>
+    </>
 }
 
 export default BillingForm
