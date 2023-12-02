@@ -85,6 +85,9 @@ const onUploadComplete = async ({
         }
       };
     });
+    if(false) {
+      // do nothing comment for test
+    }
     await PineconeStore.fromDocuments(documents, embeddings, {
       pineconeIndex,
     })
