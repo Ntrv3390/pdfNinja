@@ -47,10 +47,8 @@ const onUploadComplete = async ({
   }
 
   if (isFileExist) return
-
   
 
-  try {
     const createdFile = await db.file.create({
       data: {
         key: file.key,
@@ -134,9 +132,6 @@ const onUploadComplete = async ({
       },
     })
   }
-} catch (error) {
-  console.error('Error creating file:', error);
-}
 
 }
 

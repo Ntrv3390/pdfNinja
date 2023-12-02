@@ -143,9 +143,9 @@ const UploadDropzone = ({
                       <Loader2 className='h-3 w-3 animate-spin' />
                       Redirecting...
                     </div>
-                  ) : null}
-                </div>
-              ) : null}
+                  ) : <p className='text-xs items-center justify-center mt-3 flex  text-zinc-500'>{uploadProgress}%</p>}
+                  </div>
+               ) : null}
 
               <input
                 {...getInputProps()}
