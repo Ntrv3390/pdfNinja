@@ -42,6 +42,10 @@ const onUploadComplete = async ({
     },
   })
 
+  if(true) {
+    // do nothing
+  }
+
   if (isFileExist) return
 
   const createdFile = await db.file.create({
