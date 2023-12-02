@@ -48,15 +48,20 @@ const onUploadComplete = async ({
 
   if (isFileExist) return
 
-  const createdFile = await db.file.create({
-    data: {
-      key: file.key,
-      name: file.name,
-      userId: metadata.userId,
-      url: `https://utfs.io/f/${file.key}`,
-      uploadStatus: 'PROCESSING',
-    },
-  })
+  
+
+  try {
+    const createdFile = await db.file.create({
+      data: {
+        key: file.key,
+        name: file.name,
+        userId: metadata.userId,
+        url: `https://utfs.io/f/${file.key}`,
+        uploadStatus: 'PROCESSING',
+      },
+    });
+    console.log('File created successfully:', createdFile);
+  
 
   try {
     const response = await fetch(
@@ -129,7 +134,12 @@ const onUploadComplete = async ({
       },
     })
   }
+} catch (error) {
+  console.error('Error creating file:', error);
 }
+
+}
+
 
 export const ourFileRouter = {
   freePlanUploader: f({ pdf: { maxFileSize: '2MB' } })
