@@ -12,9 +12,12 @@ const UpgradeButton = () => {
         }
     })
     return (
-        <Button onClick={() => createStripeSession()} className="w-full">
+        <>
+        <div className="w-full font-semibold text-gray-700 mb-2">Currently now available!</div>
+        <Button disabled={true} onClick={() => createStripeSession()} className="w-full">
             Upgrade now <ArrowRight className="h-5 w-5 ml-1.5"/>
         </Button>
+        </>
     )
 }
 
