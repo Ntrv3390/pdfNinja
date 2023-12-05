@@ -16,14 +16,14 @@ const Page = () => {
         {
           plan: 'Free',
           tagline: 'For small side projects.',
-          quota: 10,
+          quota: 5,
           features: [
             {
               text: '5 pages per PDF',
               footnote: 'The maximum amount of pages per PDF-file.',
             },
             {
-              text: '4MB file size limit',
+              text: '2MB file size limit',
               footnote: 'The maximum file size of a single PDF file.',
             },
             {
@@ -50,7 +50,7 @@ const Page = () => {
               footnote: 'The maximum amount of pages per PDF-file.',
             },
             {
-              text: '16MB file size limit',
+              text: '8MB file size limit',
               footnote: 'The maximum file size of a single PDF file.',
             },
             {
