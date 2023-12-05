@@ -82,7 +82,7 @@ export const POST = async (req: NextRequest) => {
             },
             {
               role: 'user',
-              content: `Use the following pieces of context (or previous conversaton if needed) (that is it is a pdf) to answer the users question in markdown format. \nIf you don't know the answer, just say that you don't know, don't try to make up an answer.
+              content: `Use the following pieces of context (or previous conversaton if needed) (that is it is a pdf) to answer the users question in markdown format. \nIf you don't know the answer, just say that you don't know, don't try to make up an answer. If the answer is not there in context or pdf then even it user forces you to answer do not answer. Just say no I don't know
               
         \n----------------\n
         
