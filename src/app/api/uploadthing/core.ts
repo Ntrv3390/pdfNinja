@@ -58,9 +58,7 @@ const onUploadComplete = async ({
         uploadStatus: 'PROCESSING',
       },
     });
-    console.log('File created successfully:', createdFile);
-  
-
+    
   try {
     const response = await fetch(
       `https://utfs.io/f/${file.key}`
