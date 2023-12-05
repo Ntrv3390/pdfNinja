@@ -4,7 +4,7 @@ import {
   createUploadthing,
   type FileRouter,
 } from 'uploadthing/next'
-
+import { Document } from "langchain/document";
 import { PDFLoader } from 'langchain/document_loaders/fs/pdf'
 import { OpenAIEmbeddings } from 'langchain/embeddings/openai'
 import { PineconeStore } from 'langchain/vectorstores/pinecone'
@@ -42,9 +42,6 @@ const onUploadComplete = async ({
     },
   })
 
-  if(true) {
-    // do nothing
-  }
 
   if (isFileExist) return
   
@@ -69,6 +66,12 @@ const onUploadComplete = async ({
     const loader = new PDFLoader(blob)
 
     const pageLevelDocs = await loader.load()
+    const documents: Document<{ fileid: string; }>[] = [
+      {
+        metadata: { fileid: createdFile.id },
+        pageContent: pageLevelDocs[0].pageContent,
+      },
+    ];
 
     const pagesAmt = pageLevelDocs.length
 
@@ -103,13 +106,12 @@ const onUploadComplete = async ({
     const embeddings = new OpenAIEmbeddings({
       openAIApiKey: process.env.OPENAI_API_KEY,
     })
-
     await PineconeStore.fromDocuments(
-      pageLevelDocs,
+      documents,
       embeddings,
       {
         pineconeIndex,
-      }
+      },
     )
 
     await db.file.update({

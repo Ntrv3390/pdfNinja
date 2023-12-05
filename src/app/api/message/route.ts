@@ -38,6 +38,7 @@ export const POST = async (req: NextRequest) => {
         },
     });
 
+
     // 1: vectorize the message
 
     const embeddings = new OpenAIEmbeddings({
@@ -50,10 +51,9 @@ export const POST = async (req: NextRequest) => {
         pineconeIndex,
       });
 
-    const results = await vectorStore.similaritySearch(message, 6, {
+    const results = await vectorStore.similaritySearch(message, 4, {
         fileid: fileId,
     });
-    const filteredResults = results;
     const prevMessages = await db.message.findMany({
         where: {
             fileId,
@@ -94,7 +94,7 @@ export const POST = async (req: NextRequest) => {
         
         \n----------------\n
         CONTEXT:
-        ${filteredResults.map((r) => r.pageContent).join('\n\n')}
+        ${results.map((r) => r.pageContent).join('\n\n')}
         
         USER INPUT: ${message}`,
             },
@@ -115,6 +115,5 @@ export const POST = async (req: NextRequest) => {
     })
 
     // returning stream and accept the context
-
     return new StreamingTextResponse(stream);
 }
