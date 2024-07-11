@@ -12,6 +12,9 @@ export default function Home() {
   return (
     <>
       <MaxWidthWrapper className="mb-12 mt-28 sm:mt-40 flex flex-col items-center justify-center text-center">
+        <div className="bg-red-600 text-white p-5 m-8 rounded-lg text-2xl">
+          <b>Please note:</b> This project may or may not run, as this project is made using services like OpenAI API, Databases like Pinecone, Uploadthing, etc. If their API keys have exhausted, it might be possible that the project won&apos;t run.
+        </div>
         <h1 className="max-w-4xl text-5xl font-bold md:text-6xl lg:text-7xl">
           Say hello to your{" "}
           <span className="text-orange-600">PDF&apos;s👋</span>
