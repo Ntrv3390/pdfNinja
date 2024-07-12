@@ -27,7 +27,7 @@ const UserAccountNav = async ({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild className="overflow-visible">
-        <Button className="rounded-full h-10 w-10 aspect-square bg-orange-400">
+        <Button className="rounded-md px-6 py-4 aspect-square bg-orange-400">
           Profile
         </Button>
       </DropdownMenuTrigger>
