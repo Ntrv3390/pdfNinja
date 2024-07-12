@@ -13,13 +13,13 @@ export const POST = async (req: NextRequest) => {
     const body = await req.json();
     const { getUser } = getKindeServerSession();
     const user = getUser();
-  
+
     const { id: userId } = user;
-  
+
     if (!userId) return new Response("Unauthorized", { status: 401 });
-  
+
     const { fileId, message } = SendMessageValidator.parse(body);
-  
+
     const file = await db.file.findFirst({
       where: {
         id: fileId,
@@ -27,7 +27,7 @@ export const POST = async (req: NextRequest) => {
       },
     });
     if (!file) return new Response("Not found", { status: 404 });
-  
+
     await db.message.create({
       data: {
         text: message,
@@ -36,22 +36,26 @@ export const POST = async (req: NextRequest) => {
         fileId,
       },
     });
-  
+
     const embeddings = new OpenAIEmbeddings({
       openAIApiKey: process.env.OPENAI_API_KEY,
     });
-  
+
     const pineconeIndex = pinecone.index("pdfninja");
-  
-    if(!pineconeIndex) return new Response("Index not created", { status: 404 });
-  
+
+    if (!pineconeIndex)
+      return new Response("Index not created", { status: 404 });
+
     const vectorStore = await PineconeStore.fromExistingIndex(embeddings, {
       pineconeIndex,
     });
-  
+
     const results = await vectorStore.similaritySearch(message, 4, {
       fileid: fileId,
     });
+
+    if (!results) return new Response("No results found", { status: 404 });
+
     const prevMessages = await db.message.findMany({
       where: {
         fileId,
@@ -61,12 +65,12 @@ export const POST = async (req: NextRequest) => {
       },
       take: 6,
     });
-  
+
     const formattedPrevMessages = prevMessages.map((msg) => ({
       role: msg.isUserMessage ? ("user" as const) : ("assistant" as const),
       content: msg.text,
     }));
-  
+
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       temperature: 0,
@@ -97,7 +101,7 @@ export const POST = async (req: NextRequest) => {
         },
       ],
     });
-  
+
     const stream = OpenAIStream(response, {
       async onCompletion(completion) {
         await db.message.create({
@@ -112,6 +116,6 @@ export const POST = async (req: NextRequest) => {
     });
     return new StreamingTextResponse(stream);
   } catch (error) {
-    console.log(error)
+    return new Response(`Error: ${error}`, { status: 500 });
   }
 };
