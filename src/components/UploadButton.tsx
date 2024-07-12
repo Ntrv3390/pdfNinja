@@ -55,7 +55,6 @@ const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {
 
         const progressInterval = startSimulatedProgress();
 
-        // handle file uploading
         const res = await startUpload(acceptedFile);
 
         if (!res) {
@@ -99,9 +98,6 @@ const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {
                 <p className="mb-2 text-sm text-zinc-700">
                   <span className="font-semibold">Click to upload</span> or drag
                   and drop
-                </p>
-                <p className="text-xs text-zinc-500">
-                  PDF (up to {isSubscribed ? "8" : "2"}MB)
                 </p>
               </div>
 
