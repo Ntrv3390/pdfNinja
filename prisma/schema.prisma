@@ -30,7 +30,7 @@ model File {
   id String @id @default(cuid())
   name String
 
-  uploadStatus UploadStatus @default(PENDING)
+  uploadStatus UploadStatus @default(SUCCESS)
   url String
   key String
   messages Message[]
