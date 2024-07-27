@@ -75,7 +75,7 @@ const PDFRenderer = ({ url }: PdfRendererProps) => {
 
   return (
     <>
-      <div className="m-5 p-5 text-white bg-red-600 rounded-md">Due to changes in OpenAI Api policies, to use free api we need to add credit card details, due to which chatting will not work. Thank you for your visit</div>
+      <div className="m-5 p-5 text-white bg-red-600 rounded-md">Due to changes in OpenAI Api policies, to use free api we need to add credit card details, due to which chatting will not work. Thank you for your visit.</div>
       <div className="w-full bg-white rounded-md shadow flex flex-col items-center">
         <div className="h-14 w-full border-b border-zinc-200 flex items-center justify-between px-2">
           <div className="flex items-center gap-1.5">
