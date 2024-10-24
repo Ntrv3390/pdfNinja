@@ -7,6 +7,7 @@ import {
   Loader2,
   RotateCw,
   Search,
+  X,
 } from "lucide-react";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
@@ -28,7 +29,6 @@ import {
 } from "./ui/dropdown-menu";
 import SimpleBar from "simplebar-react";
 import PdfFullScreen from "./PdfFullScreen";
-import { useEffect } from "react";
 import Link from "next/link";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -45,6 +45,7 @@ const PDFRenderer = ({ url }: PdfRendererProps) => {
 
   const [rotation, setRotation] = useState<number>(0);
   const [renderedScale, setRenderedScale] = useState<number | null>(null);
+  const [noteVisible, setNoteVisible] = useState<boolean | true>(true);
   const isLoading = renderedScale !== scale;
 
   const CustomPageValidator = z.object({
@@ -73,9 +74,26 @@ const PDFRenderer = ({ url }: PdfRendererProps) => {
     setValue("page", String(page));
   };
 
+  const handleNoteVisibility = () => {
+    setNoteVisible(false);
+  };
+
   return (
     <>
-      <div className="m-5 p-5 text-white bg-red-600 rounded-md">Due to changes in OpenAI Api policies, to use free api we need to add credit card details, due to which chatting will not work. Thank you for your visit.</div>
+      {noteVisible && (
+        <div className="mb-5 p-5 text-white flex flex-row-reverse bg-red-600 rounded-md">
+          <X
+            className="absolute cursor-pointer top-[87px] left-[825px]"
+            width={20}
+            height={20}
+            onClick={handleNoteVisibility}
+          />
+          <p>
+            My OpenAI API quota has been exceeded, so the model will not be able
+            to respond to your questions. Thank you for your visit.
+          </p>
+        </div>
+      )}
       <div className="w-full bg-white rounded-md shadow flex flex-col items-center">
         <div className="h-14 w-full border-b border-zinc-200 flex items-center justify-between px-2">
           <div className="flex items-center gap-1.5">
