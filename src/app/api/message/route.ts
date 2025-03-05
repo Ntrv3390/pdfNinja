@@ -7,6 +7,7 @@ import { PineconeStore } from "langchain/vectorstores/pinecone";
 import pinecone from "@/lib/pinecone";
 import { openai } from "@/lib/openai";
 import { OpenAIStream, StreamingTextResponse } from "ai";
+import { Configuration } from "openai";
 
 export const POST = async (req: NextRequest) => {
   try {
@@ -37,11 +38,14 @@ export const POST = async (req: NextRequest) => {
       },
     });
 
+    const configuration = new Configuration({
+      apiKey: process.env.OPENAI_API_KEY,
+      basePath: "https://openrouter.ai/api/v1",
+    });
+
     const embeddings = new OpenAIEmbeddings({
       openAIApiKey: process.env.OPENAI_API_KEY,
-      configuration: {
-        basePath: "https://openrouter.ai/api/v1",
-      }
+      configuration: configuration,
     });
 
     const pineconeIndex = pinecone.index("pdfninja");
