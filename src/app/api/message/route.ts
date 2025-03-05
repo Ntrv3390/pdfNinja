@@ -40,7 +40,7 @@ export const POST = async (req: NextRequest) => {
     const embeddings = new OpenAIEmbeddings({
       openAIApiKey: process.env.OPENAI_API_KEY,
       configuration: {
-        baseURL: "https://openrouter.ai/api/v1",
+        baseURL: "https://openrouter.ai/api/v1/chat/completions",
       },
     });
 
