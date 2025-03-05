@@ -72,7 +72,7 @@ export const POST = async (req: NextRequest) => {
     }));
 
     const response = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
+      model: "deepseek/deepseek-r1:free",
       temperature: 0,
       stream: true,
       messages: [
