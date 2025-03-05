@@ -39,6 +39,9 @@ export const POST = async (req: NextRequest) => {
 
     const embeddings = new OpenAIEmbeddings({
       openAIApiKey: process.env.OPENAI_API_KEY,
+      configuration: {
+        basePath: "https://openrouter.ai/api/v1",
+      }
     });
 
     const pineconeIndex = pinecone.index("pdfninja");
